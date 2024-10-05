@@ -1,0 +1,319 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    COMILLAS
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> IDENTIFICADOR PARENTESIS_IZQUIERDA PARENTESIS_DERECHA LLAVE_IZQUIERDA declarations LLAVE_DERECHA
+Rule 2     declarations -> INT IDENTIFICADOR PUNTO_Y_COMA
+Rule 3     declarations -> READ IDENTIFICADOR PUNTO_Y_COMA
+Rule 4     declarations -> IDENTIFICADOR IGUAL IDENTIFICADOR SUMA IDENTIFICADOR PUNTO_Y_COMA
+Rule 5     declarations -> PRINTF PARENTESIS_IZQUIERDA STRING PARENTESIS_DERECHA PUNTO_Y_COMA
+Rule 6     declarations -> END PUNTO_Y_COMA
+Rule 7     declarations -> declarations declarations
+
+Terminals, with rules where they appear
+
+COMILLAS             : 
+END                  : 6
+IDENTIFICADOR        : 1 2 3 4 4 4
+IGUAL                : 4
+INT                  : 2
+LLAVE_DERECHA        : 1
+LLAVE_IZQUIERDA      : 1
+PARENTESIS_DERECHA   : 1 5
+PARENTESIS_IZQUIERDA : 1 5
+PRINTF               : 5
+PUNTO_Y_COMA         : 2 3 4 5 6
+READ                 : 3
+STRING               : 5
+SUMA                 : 4
+error                : 
+
+Nonterminals, with rules where they appear
+
+declarations         : 1 7 7
+program              : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . IDENTIFICADOR PARENTESIS_IZQUIERDA PARENTESIS_DERECHA LLAVE_IZQUIERDA declarations LLAVE_DERECHA
+
+    IDENTIFICADOR   shift and go to state 2
+
+    program                        shift and go to state 1
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> IDENTIFICADOR . PARENTESIS_IZQUIERDA PARENTESIS_DERECHA LLAVE_IZQUIERDA declarations LLAVE_DERECHA
+
+    PARENTESIS_IZQUIERDA shift and go to state 3
+
+
+state 3
+
+    (1) program -> IDENTIFICADOR PARENTESIS_IZQUIERDA . PARENTESIS_DERECHA LLAVE_IZQUIERDA declarations LLAVE_DERECHA
+
+    PARENTESIS_DERECHA shift and go to state 4
+
+
+state 4
+
+    (1) program -> IDENTIFICADOR PARENTESIS_IZQUIERDA PARENTESIS_DERECHA . LLAVE_IZQUIERDA declarations LLAVE_DERECHA
+
+    LLAVE_IZQUIERDA shift and go to state 5
+
+
+state 5
+
+    (1) program -> IDENTIFICADOR PARENTESIS_IZQUIERDA PARENTESIS_DERECHA LLAVE_IZQUIERDA . declarations LLAVE_DERECHA
+    (2) declarations -> . INT IDENTIFICADOR PUNTO_Y_COMA
+    (3) declarations -> . READ IDENTIFICADOR PUNTO_Y_COMA
+    (4) declarations -> . IDENTIFICADOR IGUAL IDENTIFICADOR SUMA IDENTIFICADOR PUNTO_Y_COMA
+    (5) declarations -> . PRINTF PARENTESIS_IZQUIERDA STRING PARENTESIS_DERECHA PUNTO_Y_COMA
+    (6) declarations -> . END PUNTO_Y_COMA
+    (7) declarations -> . declarations declarations
+
+    INT             shift and go to state 8
+    READ            shift and go to state 9
+    IDENTIFICADOR   shift and go to state 6
+    PRINTF          shift and go to state 10
+    END             shift and go to state 11
+
+    declarations                   shift and go to state 7
+
+state 6
+
+    (4) declarations -> IDENTIFICADOR . IGUAL IDENTIFICADOR SUMA IDENTIFICADOR PUNTO_Y_COMA
+
+    IGUAL           shift and go to state 12
+
+
+state 7
+
+    (1) program -> IDENTIFICADOR PARENTESIS_IZQUIERDA PARENTESIS_DERECHA LLAVE_IZQUIERDA declarations . LLAVE_DERECHA
+    (7) declarations -> declarations . declarations
+    (2) declarations -> . INT IDENTIFICADOR PUNTO_Y_COMA
+    (3) declarations -> . READ IDENTIFICADOR PUNTO_Y_COMA
+    (4) declarations -> . IDENTIFICADOR IGUAL IDENTIFICADOR SUMA IDENTIFICADOR PUNTO_Y_COMA
+    (5) declarations -> . PRINTF PARENTESIS_IZQUIERDA STRING PARENTESIS_DERECHA PUNTO_Y_COMA
+    (6) declarations -> . END PUNTO_Y_COMA
+    (7) declarations -> . declarations declarations
+
+    LLAVE_DERECHA   shift and go to state 14
+    INT             shift and go to state 8
+    READ            shift and go to state 9
+    IDENTIFICADOR   shift and go to state 6
+    PRINTF          shift and go to state 10
+    END             shift and go to state 11
+
+    declarations                   shift and go to state 13
+
+state 8
+
+    (2) declarations -> INT . IDENTIFICADOR PUNTO_Y_COMA
+
+    IDENTIFICADOR   shift and go to state 15
+
+
+state 9
+
+    (3) declarations -> READ . IDENTIFICADOR PUNTO_Y_COMA
+
+    IDENTIFICADOR   shift and go to state 16
+
+
+state 10
+
+    (5) declarations -> PRINTF . PARENTESIS_IZQUIERDA STRING PARENTESIS_DERECHA PUNTO_Y_COMA
+
+    PARENTESIS_IZQUIERDA shift and go to state 17
+
+
+state 11
+
+    (6) declarations -> END . PUNTO_Y_COMA
+
+    PUNTO_Y_COMA    shift and go to state 18
+
+
+state 12
+
+    (4) declarations -> IDENTIFICADOR IGUAL . IDENTIFICADOR SUMA IDENTIFICADOR PUNTO_Y_COMA
+
+    IDENTIFICADOR   shift and go to state 19
+
+
+state 13
+
+    (7) declarations -> declarations declarations .
+    (7) declarations -> declarations . declarations
+    (2) declarations -> . INT IDENTIFICADOR PUNTO_Y_COMA
+    (3) declarations -> . READ IDENTIFICADOR PUNTO_Y_COMA
+    (4) declarations -> . IDENTIFICADOR IGUAL IDENTIFICADOR SUMA IDENTIFICADOR PUNTO_Y_COMA
+    (5) declarations -> . PRINTF PARENTESIS_IZQUIERDA STRING PARENTESIS_DERECHA PUNTO_Y_COMA
+    (6) declarations -> . END PUNTO_Y_COMA
+    (7) declarations -> . declarations declarations
+
+  ! shift/reduce conflict for INT resolved as shift
+  ! shift/reduce conflict for READ resolved as shift
+  ! shift/reduce conflict for IDENTIFICADOR resolved as shift
+  ! shift/reduce conflict for PRINTF resolved as shift
+  ! shift/reduce conflict for END resolved as shift
+    LLAVE_DERECHA   reduce using rule 7 (declarations -> declarations declarations .)
+    INT             shift and go to state 8
+    READ            shift and go to state 9
+    IDENTIFICADOR   shift and go to state 6
+    PRINTF          shift and go to state 10
+    END             shift and go to state 11
+
+  ! INT             [ reduce using rule 7 (declarations -> declarations declarations .) ]
+  ! READ            [ reduce using rule 7 (declarations -> declarations declarations .) ]
+  ! IDENTIFICADOR   [ reduce using rule 7 (declarations -> declarations declarations .) ]
+  ! PRINTF          [ reduce using rule 7 (declarations -> declarations declarations .) ]
+  ! END             [ reduce using rule 7 (declarations -> declarations declarations .) ]
+
+    declarations                   shift and go to state 13
+
+state 14
+
+    (1) program -> IDENTIFICADOR PARENTESIS_IZQUIERDA PARENTESIS_DERECHA LLAVE_IZQUIERDA declarations LLAVE_DERECHA .
+
+    $end            reduce using rule 1 (program -> IDENTIFICADOR PARENTESIS_IZQUIERDA PARENTESIS_DERECHA LLAVE_IZQUIERDA declarations LLAVE_DERECHA .)
+
+
+state 15
+
+    (2) declarations -> INT IDENTIFICADOR . PUNTO_Y_COMA
+
+    PUNTO_Y_COMA    shift and go to state 20
+
+
+state 16
+
+    (3) declarations -> READ IDENTIFICADOR . PUNTO_Y_COMA
+
+    PUNTO_Y_COMA    shift and go to state 21
+
+
+state 17
+
+    (5) declarations -> PRINTF PARENTESIS_IZQUIERDA . STRING PARENTESIS_DERECHA PUNTO_Y_COMA
+
+    STRING          shift and go to state 22
+
+
+state 18
+
+    (6) declarations -> END PUNTO_Y_COMA .
+
+    LLAVE_DERECHA   reduce using rule 6 (declarations -> END PUNTO_Y_COMA .)
+    INT             reduce using rule 6 (declarations -> END PUNTO_Y_COMA .)
+    READ            reduce using rule 6 (declarations -> END PUNTO_Y_COMA .)
+    IDENTIFICADOR   reduce using rule 6 (declarations -> END PUNTO_Y_COMA .)
+    PRINTF          reduce using rule 6 (declarations -> END PUNTO_Y_COMA .)
+    END             reduce using rule 6 (declarations -> END PUNTO_Y_COMA .)
+
+
+state 19
+
+    (4) declarations -> IDENTIFICADOR IGUAL IDENTIFICADOR . SUMA IDENTIFICADOR PUNTO_Y_COMA
+
+    SUMA            shift and go to state 23
+
+
+state 20
+
+    (2) declarations -> INT IDENTIFICADOR PUNTO_Y_COMA .
+
+    LLAVE_DERECHA   reduce using rule 2 (declarations -> INT IDENTIFICADOR PUNTO_Y_COMA .)
+    INT             reduce using rule 2 (declarations -> INT IDENTIFICADOR PUNTO_Y_COMA .)
+    READ            reduce using rule 2 (declarations -> INT IDENTIFICADOR PUNTO_Y_COMA .)
+    IDENTIFICADOR   reduce using rule 2 (declarations -> INT IDENTIFICADOR PUNTO_Y_COMA .)
+    PRINTF          reduce using rule 2 (declarations -> INT IDENTIFICADOR PUNTO_Y_COMA .)
+    END             reduce using rule 2 (declarations -> INT IDENTIFICADOR PUNTO_Y_COMA .)
+
+
+state 21
+
+    (3) declarations -> READ IDENTIFICADOR PUNTO_Y_COMA .
+
+    LLAVE_DERECHA   reduce using rule 3 (declarations -> READ IDENTIFICADOR PUNTO_Y_COMA .)
+    INT             reduce using rule 3 (declarations -> READ IDENTIFICADOR PUNTO_Y_COMA .)
+    READ            reduce using rule 3 (declarations -> READ IDENTIFICADOR PUNTO_Y_COMA .)
+    IDENTIFICADOR   reduce using rule 3 (declarations -> READ IDENTIFICADOR PUNTO_Y_COMA .)
+    PRINTF          reduce using rule 3 (declarations -> READ IDENTIFICADOR PUNTO_Y_COMA .)
+    END             reduce using rule 3 (declarations -> READ IDENTIFICADOR PUNTO_Y_COMA .)
+
+
+state 22
+
+    (5) declarations -> PRINTF PARENTESIS_IZQUIERDA STRING . PARENTESIS_DERECHA PUNTO_Y_COMA
+
+    PARENTESIS_DERECHA shift and go to state 24
+
+
+state 23
+
+    (4) declarations -> IDENTIFICADOR IGUAL IDENTIFICADOR SUMA . IDENTIFICADOR PUNTO_Y_COMA
+
+    IDENTIFICADOR   shift and go to state 25
+
+
+state 24
+
+    (5) declarations -> PRINTF PARENTESIS_IZQUIERDA STRING PARENTESIS_DERECHA . PUNTO_Y_COMA
+
+    PUNTO_Y_COMA    shift and go to state 26
+
+
+state 25
+
+    (4) declarations -> IDENTIFICADOR IGUAL IDENTIFICADOR SUMA IDENTIFICADOR . PUNTO_Y_COMA
+
+    PUNTO_Y_COMA    shift and go to state 27
+
+
+state 26
+
+    (5) declarations -> PRINTF PARENTESIS_IZQUIERDA STRING PARENTESIS_DERECHA PUNTO_Y_COMA .
+
+    LLAVE_DERECHA   reduce using rule 5 (declarations -> PRINTF PARENTESIS_IZQUIERDA STRING PARENTESIS_DERECHA PUNTO_Y_COMA .)
+    INT             reduce using rule 5 (declarations -> PRINTF PARENTESIS_IZQUIERDA STRING PARENTESIS_DERECHA PUNTO_Y_COMA .)
+    READ            reduce using rule 5 (declarations -> PRINTF PARENTESIS_IZQUIERDA STRING PARENTESIS_DERECHA PUNTO_Y_COMA .)
+    IDENTIFICADOR   reduce using rule 5 (declarations -> PRINTF PARENTESIS_IZQUIERDA STRING PARENTESIS_DERECHA PUNTO_Y_COMA .)
+    PRINTF          reduce using rule 5 (declarations -> PRINTF PARENTESIS_IZQUIERDA STRING PARENTESIS_DERECHA PUNTO_Y_COMA .)
+    END             reduce using rule 5 (declarations -> PRINTF PARENTESIS_IZQUIERDA STRING PARENTESIS_DERECHA PUNTO_Y_COMA .)
+
+
+state 27
+
+    (4) declarations -> IDENTIFICADOR IGUAL IDENTIFICADOR SUMA IDENTIFICADOR PUNTO_Y_COMA .
+
+    LLAVE_DERECHA   reduce using rule 4 (declarations -> IDENTIFICADOR IGUAL IDENTIFICADOR SUMA IDENTIFICADOR PUNTO_Y_COMA .)
+    INT             reduce using rule 4 (declarations -> IDENTIFICADOR IGUAL IDENTIFICADOR SUMA IDENTIFICADOR PUNTO_Y_COMA .)
+    READ            reduce using rule 4 (declarations -> IDENTIFICADOR IGUAL IDENTIFICADOR SUMA IDENTIFICADOR PUNTO_Y_COMA .)
+    IDENTIFICADOR   reduce using rule 4 (declarations -> IDENTIFICADOR IGUAL IDENTIFICADOR SUMA IDENTIFICADOR PUNTO_Y_COMA .)
+    PRINTF          reduce using rule 4 (declarations -> IDENTIFICADOR IGUAL IDENTIFICADOR SUMA IDENTIFICADOR PUNTO_Y_COMA .)
+    END             reduce using rule 4 (declarations -> IDENTIFICADOR IGUAL IDENTIFICADOR SUMA IDENTIFICADOR PUNTO_Y_COMA .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for INT in state 13 resolved as shift
+WARNING: shift/reduce conflict for READ in state 13 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFICADOR in state 13 resolved as shift
+WARNING: shift/reduce conflict for PRINTF in state 13 resolved as shift
+WARNING: shift/reduce conflict for END in state 13 resolved as shift

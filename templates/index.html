@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis Léxico y Sintáctico</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        textarea {
+            width: 80%;
+            height: 150px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Análisis Léxico y Sintáctico</h1>
+
+    <form method="POST">
+        <label for="text">Ingresa tu código:</label>
+        <textarea name="text" id="text" placeholder="Escribe tu código aquí">{{ text }}</textarea>
+        <button type="submit">Analizar</button>
+    </form>
+
+    <!-- Mostrar tabla léxica si hay datos -->
+    {% if tabla_lexico %}
+    <h2>Tabla Léxica</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Línea</th>
+                <th>Token</th>
+                <th>Palabras Reservadas</th>
+                <th>Identificadores</th>
+                <th>Símbolos</th>
+                <th>Variables</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for linea, tipo, valor in tabla_lexico %}
+            <tr>
+                <td>{{ linea }}</td>
+                <td>{{ valor }}</td>
+
+                <!-- Clasificación de palabras reservadas -->
+                <td>{% if tipo in ['INT', 'READ', 'PRINTF', 'END', 'PROGRAMA'] %}✔{% endif %}</td>
+
+                <!-- Clasificación de identificadores -->
+                <td>{% if tipo == 'IDENTIFICADOR' and valor not in ['a', 'b', 'c'] %}✔{% endif %}</td>
+
+                <!-- Clasificación de símbolos -->
+                <td>{% if tipo not in ['INT', 'READ', 'PRINTF', 'END', 'IDENTIFICADOR', 'PROGRAMA'] %}✔{% endif %}</td>
+
+                <!-- Clasificación de variables -->
+                <td>{% if valor in ['a', 'b', 'c'] %}✔{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    <!-- Tabla de resultados de análisis sintáctico -->
+    {% if tabla_sintactica %}
+    <h2>Resultados de análisis sintáctico</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Líneas</th>
+                <th>Tokens</th>
+                <th>Escritura</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for linea, token, escritura in tabla_sintactica %}
+            <tr>
+                <td>{{ linea }}</td>
+                <td>{{ token }}</td>
+                <td>
+                    {% if escritura.startswith('Error:') %}
+                    <span class="error">{{ escritura }}</span>
+                    {% else %}
+                    {{ escritura }}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    <!-- Resumen de tokens -->
+    <h2>Resumen de Tokens</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Total de Tokens</th>
+                <th>Palabras Reservadas</th>
+                <th>Identificadores</th>
+                <th>Símbolos</th>
+                <th>Variables</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ tokens_totales["Tokens"] }}</td> <!-- Aquí debe sumar 26 -->
+                <td>{{ tokens_totales["Palabras Reservadas"] }}</td> <!-- 6 palabras reservadas -->
+                <td>{{ tokens_totales["Identificadores"] }}</td> <!-- 1 identificador -->
+                <td>{{ tokens_totales["Símbolos"] }}</td> <!-- 14 símbolos -->
+                <td>{{ tokens_totales["Variables"] }}</td> <!-- 5 variables -->
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
+
